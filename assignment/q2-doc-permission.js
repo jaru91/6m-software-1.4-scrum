@@ -73,3 +73,31 @@ class Permission{
 }
 
 // Add code here
+class Document extends Permission {
+    #content;
+
+    constructor(role, operation, content) {
+        super(role, operation);
+        this.#content = content;
+    }
+
+    process() {
+        if (this.check()) {
+            console.log("Allowed");
+        } else {
+            console.log("Blocked");
+        }
+    }
+}
+
+//Scenario 1:
+const document1 = new Document(Permission.RolesConst.EDITOR, Permission.OperationsConst.UPDATE, "Hello content")
+document1.process(); // "Allowed"
+
+//Scenario 2:
+const document2 = new Document(Permission.RolesConst.READER, Permission.OperationsConst.UPDATE, "Hello content")
+document2.process(); // "Blocked"
+
+//Scenario 3:
+const document3 = new Document(Permission.RolesConst.OWNER, Permission.OperationsConst.DELETE, "Hello content")
+document3.process(); // "Allowed"
